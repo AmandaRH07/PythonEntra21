@@ -21,7 +21,6 @@ def jogar():
     global opcao
     global letras_usada
     carregar_config()
-    
     opcoes()
 
     while True:
@@ -29,14 +28,14 @@ def jogar():
         if opcao == 1: 
             numeros = ["0","1","2","3","4","5","6","7","8","9"]
             limpa_tela()  
-        
             print("Número de chances: %d - tentativas:" % chances) # interpolação de string
             print(*letras_usadas) # imprime item por item do array
             print("\n")
+
             for x in palavra:
                 tentativa_palavra += x if x in letras_usadas else "_"
             print(tentativa_palavra + "\n\n")
-            
+
             chute = input("Digite uma letra: ")
             for i in chute:
                 for j in numeros:

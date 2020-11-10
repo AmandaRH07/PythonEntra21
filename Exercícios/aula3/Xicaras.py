@@ -1,8 +1,6 @@
 class Xicara:
     capacidade = "250"
-    acompanhamento = "Adocante"
-    cor = "vermelha"
-
+   
     def __init__(self, bebida, ml, acompanhamento):
         self.bebida = bebida
         self.ml = ml

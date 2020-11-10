@@ -1,12 +1,14 @@
 class Computador:
-    marca = "dell"
-    modelo = "123"
-    cor = "cinza"
-
-    def __init__(self, marca, id):
+    #Construtor
+    def __init__(self, marca, identificador):
         self.marca = marca
-        self.id = id
+        self.identificador = identificador
 
+    def __str__(self):
+        pass
+    
     def ligar(self):
-        print("Computador Inicializado")
-
+        if self.identificador:
+           return "Computador Inicializado"
+        else:
+            return "..."

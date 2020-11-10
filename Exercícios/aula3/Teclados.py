@@ -1,5 +1,5 @@
 class Teclado:
-    #atributo
+    #atributo --> todos tem
     marca = "Itautec"
     tipo = "completo"
     cor = "preto"
@@ -7,5 +7,4 @@ class Teclado:
     def capsLook(self):
         print("desativado")
 
-print("Na classe teclado: ",Teclado.marca)
-        
+print("Na classe teclado: ", Teclado.marca)    
