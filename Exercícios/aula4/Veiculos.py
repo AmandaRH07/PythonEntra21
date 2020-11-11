@@ -1,7 +1,11 @@
+from Pessoas import Pessoa, NovaPessoa
+
 passageiros = []
+teste = True
 
 class Veiculo():
     global passageiros
+    global menu
 
     def __init__(self, fabricante, qtd_rodas, combustivel, qtd_lugares, cor ):
         self.fabricante = fabricante
@@ -16,22 +20,23 @@ class Veiculo():
     def ocopacao(self):
         return "..."
 
-    def addPassageiro(self):
-        add_Nome = input("Insira o nome: ")
-        add_Idade = input("Insira a idade: ")
-        add_CPF = input("Insira o cpf: ")
-        super().__init__(add_Nome, add_Idade, add_CPF)
-        #return nome, idade, cpf
-    
-    def removePassageiro(self, nome):
+    def addPassageiro(self,pessoa:Pessoa):
+        self.pessoa = pessoa
+        #self.passageiros.append(pessoa)
+        teste = False
+        
+    def removePassageiro(self):
         remove_Passageiro = input("Insira o nome da pessoa a ser removida: ")
-        if remove_Passageiro == nome:
-            passageiros.remove(nome)
+        for passageiro in passageiros:
+            if remove_Passageiro == passageiro:
+                passageiros.remove(passageiro)
+        teste = False
 
     def listarPassageiros(self):
         print("\nLista de Passageiros: ")
         for passageiro in passageiros:
-            print(f"{passageiro.nome}")
+            print(f"{passageiro}")
+        teste = False
 
 class Carro(Veiculo):
     def __init__(self,fabricante):
