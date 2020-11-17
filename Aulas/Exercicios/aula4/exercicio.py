@@ -24,6 +24,7 @@ for veiculo in veiculos:
     Quantidade de lugares: {veiculo.qtd_lugares}
     Cor: {veiculo.cor}\n""")
 
+
 pessoa1 = NovaPessoa("Amanda","18", "123.456.789-00")
 pessoa2 = NovaPessoa("Luana","19", "987.654.321-00")
 
@@ -35,7 +36,7 @@ for pessoa in pessoas:
     #passageiros.append(pessoa.idade)
     #passageiros.append(pessoa.cpf)
 
-menu = True
+menu = False
 
 def opcoes():
     global opcao

@@ -1,7 +1,9 @@
 from Pessoas import Pessoa, NovaPessoa
+import sqlite3
 
 passageiros = []
 teste = True
+conn = sqlite3.connect("C:\Entra21_Python\Aulas\Exercicios\Aula4\Veiculos.db")
 
 class Veiculo():
     global passageiros
@@ -61,3 +63,27 @@ class Moto(Veiculo):
 class Bicicleta(Veiculo):
     def __init__(self,cor):
         super().__init__("Caloy", "2","Não se aplica", "1", cor)
+
+cursor = conn.cursor()
+
+cursor.execute(""" 
+CREATE TABLE veiculos(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    fabricante TEXT NOT NULL,
+    qtd_rodas TEXT NOT NULL,
+    combustivel TEXT NOT NULL,
+    qtd_lugares TEXT NOT NULL,
+    cor  TEXT NOT NULL
+);
+""")
+
+print("Tabela criada")
+
+
+cursor.execute("""
+INSERT INTO veiculos (fabricante, qtd_rodas, combustivel, qtd_lugares, cor )
+VALUES ('Caloy','2', 'Não se aplica', '1', 'Branco' )
+""")
+conn.commit()
+
+conn.close()
