@@ -64,6 +64,7 @@ class Bicicleta(Veiculo):
     def __init__(self,cor):
         super().__init__("Caloy", "2","Não se aplica", "1", cor)
 
+############ BANCO DE DADOS ############
 cursor = conn.cursor()
 
 try:

@@ -3,7 +3,7 @@ import sqlite3
 conn = sqlite3.connect('clientes.db')
 cursor = conn.cursor()
 
-id_cliente = 8
+id_cliente = 2
 
 # excluindo um registro da tabela
 cursor.execute("""

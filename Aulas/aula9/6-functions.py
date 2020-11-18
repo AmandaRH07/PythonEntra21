@@ -16,6 +16,7 @@ cursor = conn.cursor()
 cursor.execute("""
 SELECT * FROM clientes ORDER BY nome DESC;
 """,)
+#SELECT nome, idade 
 
 for linha in cursor.fetchall():
     print(linha)
