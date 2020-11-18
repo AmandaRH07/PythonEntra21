@@ -66,24 +66,32 @@ class Bicicleta(Veiculo):
 
 cursor = conn.cursor()
 
-cursor.execute(""" 
-CREATE TABLE veiculos(
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    fabricante TEXT NOT NULL,
-    qtd_rodas TEXT NOT NULL,
-    combustivel TEXT NOT NULL,
-    qtd_lugares TEXT NOT NULL,
-    cor  TEXT NOT NULL
-);
-""")
-
-print("Tabela criada")
-
+try:
+    cursor.execute(""" 
+    CREATE TABLE veiculos(
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        fabricante TEXT NOT NULL,
+        qtd_rodas TEXT NOT NULL,
+        combustivel TEXT NOT NULL,
+        qtd_lugares TEXT NOT NULL,
+        cor  TEXT NOT NULL
+    );
+    """)
+    print("Tabela criada")
+except:
+    print("Tabela já foi criada")
 
 cursor.execute("""
 INSERT INTO veiculos (fabricante, qtd_rodas, combustivel, qtd_lugares, cor )
-VALUES ('Caloy','2', 'Não se aplica', '1', 'Branco' )
+VALUES ("Fiat", "4", "Diesel", "5", "Preto" )
 """)
 conn.commit()
+
+cursor.execute("""
+SELECT * FROM veiculos;
+""")
+
+for linha in cursor.fetchall():
+    print(linha)
 
 conn.close()
