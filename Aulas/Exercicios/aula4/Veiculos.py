@@ -84,7 +84,7 @@ except:
 
 cursor.execute("""
 INSERT INTO veiculos (fabricante, qtd_rodas, combustivel, qtd_lugares, cor )
-VALUES ("Fiat", "4", "Diesel", "5", "Preto" )
+VALUES ("Honda", "2", "Gasolina", "2", "Prata" )
 """)
 conn.commit()
 
