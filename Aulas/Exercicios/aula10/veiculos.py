@@ -52,15 +52,18 @@ class Pessoa():
 def main():
     
     while True:
-          
+        
+        
+        template.limpar_tela()
         template.cabecalho("Cadastro Master Blaster Mega do Detran Barril")
-        template.texto_menu("[1] Criar Banco de Dados")
-        template.texto_menu("[2] Cadastrar")
-        template.texto_menu("[3] Atualizar Cadastro")
-        template.texto_menu("[4] Mostrar Cadastros")
-        template.texto_menu("[5] Deletar Cadastro")
-        template.texto_menu("[6] Sair")
-        template.rodape()
+        
+        template.menu_tabela("Criar Banco de Dados",
+                             "Cadastrar",
+                             "Atualizar Cadastro",
+                             "Mostrar Cadastro",
+                             "Deletar Cadastro",
+                             "Sair",
+                             )
         
         while True:
             try:
@@ -78,45 +81,50 @@ def main():
                 continue
             
         if resp == 1:
+            template.limpar_tela()
             criar_tabelas()
             sleep(1)
             
         elif resp == 2:
             while True:
+                template.limpar_tela()
                 cadastrar_no_banco()
                 resp = input("Você gostaria de realizar outro "
                              "cadastro? [S/N]\n").lower().strip()[0]
                 
                 if resp in "sn" and resp != "" and resp != " ":
-                    break
-                
-                else:
                     continue
                 
+                else:
+                    break
+                
         elif resp == 3:
+            template.limpar_tela()
             update()
         
         elif resp == 4:
+            template.limpar_tela()
             apresentar_banco()
         
         elif resp == 5:  
             while True:
+                template.limpar_tela()
                 deletar_no_banco()
                 resp = input("Você gostaria de deletar outro "
                              "cadastro? [S/N]\n").lower().strip()[0]
                 
                 if resp in "sn" and resp != "" and resp != " ":
-                    break
+                    continue
                 
                 else:
-                    continue
+                    break
         
         elif resp == 6:
-            print("Obrigado por usar nossos serviços!")
+            print("\nObrigado por usar nossos serviços!")
             break
         
         else:
-            print("Ops, algo deu errado. Tente novamente!")
+            print("\nOps, algo deu errado. Tente novamente!")
             sleep(1)
         
 if __name__ == "__main__":

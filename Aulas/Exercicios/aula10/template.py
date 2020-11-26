@@ -1,3 +1,13 @@
+def limpar_tela():
+    from os import system, name 
+    # for windows 
+    if name == 'nt':
+        system('cls')
+    # for mac and linux(here, os.name is 'posix') 
+    else: 
+        system('clear')
+        
+        
 def cabecalho(texto="")-> None:
     """
     Esta função retorna uma linha caso não seja dado um parâmetro e
@@ -37,20 +47,6 @@ def linha_tabela():
 
 
 def menu_tabela(*textos):
-
-    for pos, texto in enumerate(textos):
-        if pos == 0:
-            print(f" {texto:<10}",end=" ")
-            
-        elif pos == len(textos) - 1:
-            if pos < 4:
-                print(f": {texto:<6}",end=" ")
-                print(f": {'':<8}:",end=" ")
-            
-            else:
-                print(f": {texto:<8}:",end=" ")
-            
-        else:
-            print(f": {texto:<6}",end=" ")
-    
-    print()
+    for posicao, linha in enumerate(textos):
+        print(f"{'':^10}[{posicao+1}] {linha:<40}")
+    print(f"\n{'':-^50}")

@@ -1,17 +1,17 @@
 import sqlite3
 from veiculos import Pessoa, Veiculo
-import template as template2
+import template as template
+from time import sleep
 
 def cadastrar_no_banco():
     """
     Essa função é responsável pelo cadastro no banco de dados, o usuário 
     pode escolher cadastrar uma pessoa ou um veículo.
-    
     """
-    template2.cabecalho("Cadastro")
-    template2.texto_menu("[1] Pessoa")
-    template2.texto_menu("[2] Veículo")
-    template2.rodape()
+    
+    template.cabecalho("Cadastro")
+    template.menu_tabela("Pessoa",
+                         "Veículo")
     
     while True:
         try:
@@ -123,11 +123,11 @@ def cadastrar_no_banco():
     conn.close()
 
 
-def criar_tabelas(): 
+def criar_tabelas():
     """
     Função que cria a tabelas adiciona as colunas, de acordo com a função da tabela.
+    """ 
     
-    """
     conn = sqlite3.connect("Cadastro_Geral.db")
     cursor = conn.cursor()
 
@@ -171,12 +171,13 @@ def criar_tabelas():
         print("Tabela criada com sucesso!")
         
     except Exception as ex:
-        msg = "An exception of type {0} occurred. Arguments:\n{1!r}"
-        message = msg.format(type(ex).__name__, ex.args)
-        print(message)
+        # msg = "An exception of type {0} occurred. Arguments:\n{1!r}"
+        # message = msg.format(type(ex).__name__, ex.args)
+        # print(message)
         print("Tabela já criada neste banco de dados! Para alterações, "
             "use o UPDATE!")
-    
+        sleep(2)
+        
     conn.close()
 
 
@@ -184,12 +185,10 @@ def deletar_no_banco():
     """
     Essa função é responsável por deletar uma pessoa ou veículo no banco de 
     dados.
-    
     """
-    template2.cabecalho("Deletar Cadastro")
-    template2.texto_menu("[1] Pessoa")
-    template2.texto_menu("[2] Veículo")
-    template2.rodape()
+    template.cabecalho("Deletar Cadastro")
+    template.menu_tabela("Pessoa",
+                         "Veículo")
     
     while True:
         try:
@@ -210,76 +209,141 @@ def deletar_no_banco():
     cursor = conn.cursor()
 
     
+    
     if resp == 1:
-        
-        #Adicionar funcao para mostrar ID's e nome para deletar
-    
-        id_cliente = int(input("Qual id de pessoa você gostaria de deletar?"))
-        
-    try:
-        # excluindo um registro da tabela
+        apresentar_banco("tudo", att_pessoa= True)
+
         cursor.execute("""
-        DELETE FROM Cadastro_pessoa
-        WHERE id = ?
-        """, (id_cliente,))
+                       SELECT id FROM Cadastro_Pessoa;
+                       """)
+        
+        todos_ids = cursor.fetchall()
 
-        conn.commit()
+        todos_ids = [x for tupla in todos_ids for x in tupla]
+        
+        while True:
+            try:
+                id_cliente = int(input("Qual id de pessoa você gostaria de deletar?"))
+                
+                if id_cliente not in todos_ids:                  
+                    print("ID não cadastrado! Tente novamente.")
+                    continue
+                else:
+                    break
+            
+            except:
+                print("Você digitou algo errado! Tente novamente.")
+                continue
+        
+        try:
+            # excluindo um registro da tabela
+            cursor.execute("""
+            DELETE FROM Cadastro_pessoa
+            WHERE id = ?
+            """, (id_cliente,))
 
-        print('Registro excluido com sucesso.')
-    
-    except Exception as ex:
-        conn.rollback()
-        msg = "An exception of type {0} occurred. Arguments:\n{1!r}"
-        message = msg.format(type(ex).__name__, ex.args)
-        print(message)
+            conn.commit()
+
+            print('Registro excluido com sucesso.')
+        
+        except Exception as ex:
+            conn.rollback()
+            msg = "An exception of type {0} occurred. Arguments:\n{1!r}"
+            message = msg.format(type(ex).__name__, ex.args)
+            print(message)
 
     if resp == 2:
-        
-        #Adicionar funcao para mostrar ID's e nome para deletar
-    
-        id_cliente = int(input("Qual id de pessoa você gostaria de deletar?"))
-        
-    try:
+        apresentar_banco("tudo", att_veiculo= True)
 
-        # excluindo um registro da tabela
         cursor.execute("""
-        DELETE FROM Cadastro_veiculo
-        WHERE id = ?
-        """, (id_cliente,))
+                SELECT id FROM Cadastro_Veiculo;
+                """)
+        
+        todos_ids = cursor.fetchall()
 
-        conn.commit()
+        todos_ids = [x for tupla in todos_ids for x in tupla]
+        
+        while True:
+            try:
+                id_cliente = int(input("Qual id de pessoa você gostaria de deletar?"))
+                
+                if id_cliente not in todos_ids:                  
+                    print("ID não cadastrado! Tente novamente.")
+                    continue
+                else:
+                    break
+            
+            except:
+                print("Você digitou algo errado! Tente novamente.")
+                continue
 
-        print('Registros excluidos com sucesso.')
-    
-    except Exception as ex:
-        conn.rollback()
-        msg = "An exception of type {0} occurred. Arguments:\n{1!r}"
-        message = msg.format(type(ex).__name__, ex.args)
-        print(message)
+        try:
 
-    conn.close()
+            # excluindo     um registro da tabela
+            cursor.execute("""
+            DELETE FROM Cadastro_veiculo
+            WHERE id = ?
+            """, (id_cliente,))
+
+            conn.commit()
+
+            print('Registros excluidos com sucesso.')
+        
+        except Exception as ex:
+            conn.rollback()
+            msg = "An exception of type {0} occurred. Arguments:\n{1!r}"
+            message = msg.format(type(ex).__name__, ex.args)
+            print(message)
+
+        conn.close()
 
 
 def update():
     """
     Função usada para o usuário atualizar uma informação no banco de dados.
-    
     """
+    
     conn = sqlite3.connect('Cadastro_Geral.db')
     cursor = conn.cursor()
-
+    
     escolha = int(input("Você gostaria de atualizar?\n\n[1] Pessoa\n\n"
                         "[2] Veículo\n\n[3] Vincular veículo a uma pessoa\n\n"))
     
     if escolha == 1:
+        
+        cursor.execute("""
+                       SELECT id FROM Cadastro_Pessoa;
+                       """)
+        
+        todos_ids = cursor.fetchall()
+
+        todos_ids = [x for tupla in todos_ids for x in tupla]
+        
+        # for tupla in todos_ids_pessoas:
+        #     for x in tupla:
+        #         todos_ids_pessoas.appen(x)
+        
         lista = cursor.execute("""PRAGMA table_info(Cadastro_pessoa)""")
         print("Você optou por alterar cadastro em uma pessoa.\n")
+        apresentar_banco("tudo", att_pessoa =True)
         
     elif escolha == 2:
+        
+        cursor.execute("""
+                       SELECT id FROM Cadastro_Veiculo;
+                       """)
+        
+        todos_ids = cursor.fetchall()
+
+        todos_ids = [x for tupla in todos_ids for x in tupla]
+        
         lista = cursor.execute("""PRAGMA table_info(Cadastro_veiculo)""")
         print("Você optou por alterar cadastro em um veículo.\n")
-    
+        apresentar_banco("tudo", att_veiculo=True)
+        
     elif escolha == 3:
+        #ADICIONAR VALIDAÇÃO DE ID e mostrar ID's disponíveis
+        
         apresentar_banco("pessoas_sem_veiculo")
         id_cliente = int(input("À quem você gostaria de "
                               "vincular um veículo?\nID: "))
@@ -295,23 +359,32 @@ def update():
             WHERE id = {id_cliente}
             """)
     
-    if escolha == 1 or escolha == 2:        
+    if escolha == 1 or escolha == 2:       
         opcoes = []
+        
+        while True:
+            
+            id_cliente = int(input("\nInsira o id que você deseja alterar:\n"))
+        
+            if id_cliente not in todos_ids:
+                print("ID não cadastrado! Tente novamente.")
+                continue
+            
+            else:
+                break
         
         for opcao in lista:
             opcoes.append(opcao[1])
 
         for num, opcao in enumerate(opcoes):
-            if num != 0:
-                print(f"[{num}] - {opcao}")
+            if num != 0 or num :
+                print(f"[{num}] - {opcao.replace('_',' ').title()}")
         
         opc = int(input("\nInsira uma opção para atualizar:\n"))
         
         campo_atualizar = opcoes[opc]
         
-        id_cliente = int(input("\nInsira o id que você deseja alterar:\n"))
-        
-        atualizacao = input(f"\nInsira a nova informação para atualizar o campo "
+        atualizacao = input(f"\nInsira a nova informação para atualizar o campo"
                             f"{campo_atualizar}:\n")
         
     # alterando os dados da tabela
@@ -334,13 +407,14 @@ def update():
     conn.close()
     
     
-def apresentar_banco(entrada = "tudo"): 
+def apresentar_banco(entrada = "tudo", att_pessoa = False, att_veiculo = False): 
     """
     Essa função é responsável por mostrar os dados escolhidos, o usuário 
     pode escolher mostrar uma pessoa que ainda não está vinculada a um 
     veículo, um veículo que ainda não está vinculado a uma pessoa ou uma
     pessoa com veículo.    
     """
+    
     conn = sqlite3.connect('Cadastro_Geral.db')
     cursor = conn.cursor()
     
@@ -357,16 +431,13 @@ def apresentar_banco(entrada = "tudo"):
     
         conn.close()
         
-
     if entrada == "Veiculos_sem_pessoas":
         cursor.execute("""
             SELECT id, nome, placa FROM Cadastro_veiculo;
             """)
         lista_veiculos = cursor.fetchall()
         
-       # Primeiro seleciona os veículos que estão ligados a pessoa
-       # para depois tirar da lista de pessoas com veículo, sobrando 
-       # as sem veículo         
+                
         cursor.execute("""
                 SELECT veiculo_id FROM Cadastro_pessoa
                 Where veiculo_id != 0
@@ -383,126 +454,146 @@ def apresentar_banco(entrada = "tudo"):
         conn.close()
         
     if entrada == "tudo":
-        template2.cabecalho("Tabela de Cadastros")
-        template2.texto_menu("[1] Pessoa")
-        template2.texto_menu("[2] Veículo")
-        template2.texto_menu("[3] Pessoas veículo")
-        # template2.texto_menu("[4] Pessoas sem veículo")
-        
-        template2.rodape()
-        
-        while True:
-            try:
-                resp = int(input("Selecione uma opção:\n"))
+        resp = 0
+        if att_pessoa == False and att_veiculo == False:    
+            template.cabecalho("Tabela de Cadastros")
+            template.texto_menu("[1] Pessoa")
+            template.texto_menu("[2] Veículo")
+            template.texto_menu("[3] Pessoas veículo")
+            # template.texto_menu("[4] Pessoas sem veículo")
+            
+            template.rodape()
+            
+            while True:
+                try:
+                    resp = int(input("Selecione uma opção:\n"))
 
-                if resp not in range(1,4):
+                    if resp not in range(1,4):
+                        print("Você digitou uma opção inválida. Tente novamente!")
+                        continue
+                    
+                    else:
+                        break
+                
+                except:
                     print("Você digitou uma opção inválida. Tente novamente!")
                     continue
                 
-                else:
-                    break
-            
-            except:
-                print("Você digitou uma opção inválida. Tente novamente!")
-                continue
-    
-        if resp == 1:
-            cursor.execute("""
-                    SELECT id, nome FROM Cadastro_pessoa;
-                    """)
-            
-            tabela_nomes = cursor.fetchall()
-            
-            for linha in tabela_nomes:
-                print(f"\nID:{linha[0]}\nNome:{linha[1]}")
-
-            resp = int(input("\nSelecione o ID para ver o cadastro completo.\nDigite "
-                        "0 para sair:\n"))
-            
-            if resp == 0:
-                return None
-
-            else:
-                lista = cursor.execute("""PRAGMA table_info(Cadastro_pessoa)""")
-                opcoes = []
-                # Adiciona o nome da pessoa
-                for opcao in lista:
-                    opcoes.append(opcao[1])
-                opcoes = tuple(opcoes)
+        if resp == 1 or att_pessoa == True:
+            while True:
+                todos_ids = []
+                cursor.execute("""
+                        SELECT id, nome FROM Cadastro_pessoa;
+                        """)
+                
+                tabela_nomes = cursor.fetchall()
+                
+                for linha in tabela_nomes:
+                    print(f"\nID: {linha[0]}\nNome: {linha[1]}")
+                    todos_ids.append(linha[0])            
+                
+                try:
+                    while True:
+                        resp_id = int(input("\nSelecione o ID para ver o cadastro "
+                                            "completo.\nAperte ENTER para continuar.\n"))
                     
-                cursor.execute(f"""
-                SELECT * FROM Cadastro_pessoa
-                WHERE id = {linha[0]}
-                """)
-
-                matriz = [opcoes]
-
-                matriz.append(cursor.fetchone())
-
-                # Para printar todas as informações do cadastro pessoa 
-                for indice in range(len(opcoes)):
-                    primeira_coluna = True
-                    for linha in matriz:
-                        if primeira_coluna:
-                            #mostra as informações da coluna da tabela
-                            print(f"{linha[indice]:>17}", end = " "*3)
-                            primeira_coluna = False
-                            
+                        if resp_id not in todos_ids:
+                            print("ID não cadastrado! Tente novamente.")
+                            continue
                         else:
-                            #mostra as informações do banco de dados do id selecionado
-                            print(f"{linha[indice]:<20}", end = " ")
+                            break
+                        
+                except:
+                    return None
+                
+                else:
+                    lista = cursor.execute("""PRAGMA table_info(Cadastro_pessoa)""")
+                    opcoes = []
+                    for opcao in lista:
+                        opcoes.append(opcao[1].replace("_"," ").title())
+                    opcoes = tuple(opcoes)
+                        
+                    cursor.execute(f"""
+                    SELECT * FROM Cadastro_pessoa
+                    WHERE id = {resp_id}
+                    """)
 
-                    print()         
+                    matriz = [opcoes]
+
+                    matriz.append(cursor.fetchone())
+
+                    for indice in range(len(opcoes)):
+                        primeira_coluna = True
+                        for linha in matriz:
+                            if primeira_coluna:
+                                print(f"{linha[indice]:>17}", end = " "*3)
+                                primeira_coluna = False
+                                
+                            else:
+                                print(f"{linha[indice]:<20}", end = " ")
+
+                        print()         
+                    
+                    input("\nPressione Enter para continuar.\n")
                 
-                input("\nPressione Enter para continuar.\n")
+        if resp == 2 or att_veiculo == True:
+            while True:
                 
-        if resp == 2:
+                todos_ids = []
                 
-            cursor.execute("""
+                cursor.execute("""
                     SELECT id, nome, placa FROM Cadastro_veiculo;
                     """)
-            
-            tabela_nomes = cursor.fetchall()
-            
-            for linha in tabela_nomes:
-                print(f"\nID: {linha[0]}\nNome: {linha[1]}\nPlaca: {linha[2]}")
-            
-            resp = int(input("\nSelecione o ID para ver o cadastro completo.\nDigite "
-                        "0 para sair:\n"))
-            
-            if resp == 0:
-                return None
-
-            else:
-                lista = cursor.execute("""PRAGMA table_info(Cadastro_veiculo)""")
-                opcoes = []
-                for opcao in lista:
-                    opcoes.append(opcao[1])
-                opcoes = tuple(opcoes)
+                
+                tabela_nomes = cursor.fetchall()
+                
+                for linha in tabela_nomes:
+                    print(f"\nID: {linha[0]}\nNome: {linha[1]}\nPlaca: {linha[2]}")
                     
-                cursor.execute(f"""
-                SELECT * FROM Cadastro_veiculo
-                WHERE id = {linha[0]}
-                """)
-
-                matriz = [opcoes]
-                matriz.append(cursor.fetchone())
-                for indice in range(len(opcoes)):
-                    primeira_coluna = True
-                    for linha in matriz:
-                         #mostra as informações da coluna da tabela
-                        if primeira_coluna:
-                            print(f"{linha[indice]:>17}", end = " "*3)
-                            primeira_coluna = False
-                            
+                    todos_ids.append(linha[0])            
+                
+                try:
+                    while True:
+                        resp_id = int(input("\nSelecione o ID para ver o cadastro "
+                                            "completo.\nAperte ENTER para continuar.\n"))
+                    
+                        if resp_id not in todos_ids:
+                            print("ID não cadastrado! Tente novamente.")
+                            continue
                         else:
-                             #mostra as informações do banco de dados do id selecionado
-                            print(f"{linha[indice]:<20}", end = " ")
+                            break
+                        
+                except:
+                    return None
+                    
+                else:
+                    lista = cursor.execute("""PRAGMA table_info(Cadastro_veiculo)""")
+                    opcoes = []
+                    for opcao in lista:
+                        opcoes.append(opcao[1].replace("_"," ").title())
+                    opcoes = tuple(opcoes)
+                        
+                    cursor.execute(f"""
+                    SELECT * FROM Cadastro_veiculo
+                    WHERE id = {resp_id}
+                    """)
 
-                    print()         
-                
-                input("\nPressione Enter para continuar.\n")
-                
+                    matriz = [opcoes]
+                    matriz.append(cursor.fetchone())
+                    for indice in range(len(opcoes)):
+                        primeira_coluna = True
+                        for linha in matriz:
+                            if primeira_coluna:
+                                print(f"{linha[indice]:>17}", end = " "*3)
+                                primeira_coluna = False
+                                
+                            else:
+                                print(f"{linha[indice]:<20}", end = " ")
+
+                        print()         
+                    
+                    input("\nPressione Enter para continuar.\n")
+                    
         if resp == 3:
             
             cursor.execute("""
