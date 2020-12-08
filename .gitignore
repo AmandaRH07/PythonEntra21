@@ -128,10 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
 arquivo.txt
 arquivo_dois.txt
-cliente.db
+Cadastro_Geral.db
+cadastroConta.txt
+cadastroPessoasBanco.txt
+clientes.db
 super_cliente.db
-veiculo.db
-Veiculos.db
+veiculos.db
+

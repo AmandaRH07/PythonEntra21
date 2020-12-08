@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+div.static {
+  position: static;
+  border: 3px solid #73AD21;
+}
+
+div.relative {
+  position: relative;
+  left: 30px;
+  border: 3px solid #ad3d21;
+}
+
+div.fixed {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  border: 3px solid #214dad;
+}
+
+div.relative2 {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  border: 3px solid #010200;
+} 
+
+div.absolute {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  top: 0;
+  width: 200px;
+  height: 100px;
+  border: 3px solid #8521ad;
+}
+
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 5px;
+  background-color: #cae8ca;
+  border: 2px solid #af4c4c;
+}
+
+img {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+    opacity: 0.5;
+}
+</style>
+</head>
+<body>
+
+<div>
+    <h1>This is a heading</h1>
+    <img class="minhaImagem" src="../aula13/img/006Charizard.webp" width="100" height="140">
+    <p>Because the image has a z-index of -1, it will be placed behind the text.</p>
+</div>
+
+<br><hr>
+
+<h2>position: static;</h2>
+
+<p>An element with position: static; is not positioned in any special way; it is 
+always positioned according to the normal flow of the page:</p>
+
+<div class="static">
+  This div element has position: static;
+</div>
+
+<br><hr>
+
+<h2>position: relative;</h2>
+
+<p>
+    An element with position: relative; is positioned relative to its normal position:</p>
+
+<div class="relative">
+This div element has position: relative;
+</div>
+
+<br><hr>
+
+<h2>position: fixed;</h2>
+
+<p>An element with position: fixed; is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled:</p>
+
+<div class="fixed">
+This div element has position: fixed;
+</div>
+
+<br><hr>
+
+<h2>position: absolute;</h2>
+
+<p>An element with position: absolute; is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed):</p>
+
+<div class="relative2">This div element has position: relative;
+  <div class="absolute">This div element has position: absolute;</div>
+</div>
+
+<br><hr>
+
+
+<p>Try to <b>scroll</b> inside this frame to understand how sticky positioning works.</p>
+
+<div class="sticky">I am sticky!</div>
+
+<div style="padding-bottom:2000px">
+  <p>In this example, the sticky element sticks to the top of the page (top: 0), when you reach its scroll position.</p>
+  <p>Scroll back up to remove the stickyness.</p>
+  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+</div>
+
+</body>
+</html>
