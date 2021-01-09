@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>HTML layout 1</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            div {
+                margin: 0;
+                border: 2px solid black;
+            }
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+
+    <body style="margin: auto;">
+        <!-- Menu principal -->
+        <div style="width: 100%; height: 150px; display: flex; flex-direction: column;">
+            <div style="width: 100%;position: fixed; position: 0; overflow: hidden; display: flex; direction: column;">
+                <h1 style="width: 25%;">Logo Aqui</h1>
+                <div style="display: flex; flex-direction: row; justify-content: flex-end; align-items: center; width: 75%;"> 
+                    <a style="margin-left: 30px;">Item</a>
+                    <a style="margin-left: 30px;">Item</a>
+                    <a style="margin-left: 30px;">Item</a>
+                    <a style="margin-left: 30px;">Item</a>
+                    <button style="margin-left: 30px;">Um botão </button>
+                </div>
+            </div>
+            <!-- gambiarra ;D -->
+            <div style="height: 85px;"></div>
+
+            <div style="height: 65px; display: flex; flex-direction: row; justify-content: center; align-items: center; "> 
+                <a style="margin-left: 30px;">Item</a>
+                <a style="margin-left: 30px;">Item</a>
+                <a style="margin-left: 30px;">Item</a>
+                <a style="margin-left: 30px;">Item</a>
+                <a style="margin-left: 30px;">Item</a>
+            </div>
+        </div>
+
+
+        <!-- Corpo, onde vão os posts -->
+        <div style="margin: 180px;display: flex; flex-direction: column;">
+            <div style="padding: 10px; margin-bottom: 20px; margin: 10px;">
+                <h1>Titúlo</h1>
+                <p>Parágrafo</p>
+            </div>
+            <hr style="background-color: darkorchid;">
+
+            <div style="display: flex; flex-direction: row; margin: 10px; box-sizing: border-box;">
+                <div style="width: 25%; height: 230px; padding: 30px;">
+                    <img src="../aula13/img/006Charizard.webp" title="placeholder de imagem" ></img>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: flex-start; width: 75%;">
+                    <h2>Título do nosso post</h2>
+                    <p>Escrito por alguma pessoa</p>
+                    <p>Aqui temos um pequenos resumo do que pode estar falando o nosso post, mas não é nada
+                        demais, é só pra preencher algumas linhas mesmo, no melhor estilo lorem ou gerador de lero lero. 
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menus e rodapés na parte inferior -->
+        <div style="width: 100%; height: 100px;background-color: blue;">
+            
+        </div>
+        <div style="width: 100%; height: 200px; background-color: cornflowerblue;">
+            
+        </div>
+        <div style="width: 100%; height: 50px; background-color: darkblue;">
+            
+        </div>
+    </body>
+</html>
