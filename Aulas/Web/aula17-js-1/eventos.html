@@ -1,0 +1,33 @@
+<html>
+    <!--  modo dois: associar evento a função no html-->
+    <!-- <button onclick="changeColor()">Change color</button> -->
+
+    <button>Change color</button>
+</html>
+
+<script>
+    const btn = document.querySelector('button');
+
+    function random(number) {
+        return Math.floor(Math.random() * (number+1));
+    }
+
+    // associar direto ao elemento
+    // btn.onclick = function() {
+    //     const rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+    //     document.body.style.backgroundColor = rndCol;
+    // }
+
+    function changeColor(e) {
+        const rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+        document.body.style.backgroundColor = rndCol;
+        console.log(e);
+    }
+
+    // modo 3: adicionar como "eventListner"
+    btn.addEventListener('click', changeColor);
+    // btn.addEventListener('mouseover', changeColor);
+    // btn.addEventListener('mousemove', changeColor);
+    // btn.removeEventListener('click', changeColor);
+
+</script>

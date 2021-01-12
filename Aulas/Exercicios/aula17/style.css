@@ -1,0 +1,9 @@
+body{
+   text-align: center;
+}
+
+.thumb-bar img{
+    float: left;
+    width: 20%;
+    height: 20%;
+}

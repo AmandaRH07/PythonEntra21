@@ -1,0 +1,61 @@
+<html>
+    :D
+</html>
+
+<style>
+    
+</style>
+
+
+<script>
+
+    // use let for local scope
+    let s = "Hello local";
+    console.log(s);
+
+    // global scope 
+    var ss = "Hello world";
+    alert(ss);
+
+    const language = 'JS or python? :O'
+    var sss = `Am U learning ${language}`; //"I am learning JavaScript";
+    console.log(sss);
+
+
+    function sum(x, y) {
+        return x + y;
+    }
+
+    function oi(nome){
+        return `Boa Tarde ${nome}`
+    }
+        
+
+
+    // ss.split(' ');
+    // ss.slice(0,5);
+
+    function capitalize(word){
+        return word[0].toUpperCase() + word.slice(1).toLocaleLowerCase();
+    }
+
+    function amsterdamIsFirstWord(description){
+        return description.startsWith("Amsterdam");
+    }
+
+    let number = 1000;
+    number = number.toString();
+    parseInt(number);
+
+    number % 10;
+    number === 1000;
+    number !== '1000';
+
+    const grade = 15;
+    if (grade >= 10){
+        //passing
+    } else {
+        //failing
+    }
+
+</script>

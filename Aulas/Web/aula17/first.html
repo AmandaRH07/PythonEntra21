@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <script>
+        function criarParagrafo() {
+            let word = "world";
+
+            let para = document.createElement('p');
+            para.textContent = 'Você clicou no botão!';
+            document.body.appendChild(para);
+
+            alert('criamos um paragrafo')
+
+            console.log("hello " + word)
+        }
+
+
+    </script>
+  <meta charset="utf-8">
+  <title>Exemplo aplicando JavaScript</title>
+</head>
+<body>
+  <button sonclick="criarParagrafo()">Clique em mim</button>
+</body>
+</html>
